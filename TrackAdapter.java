@@ -1,8 +1,10 @@
 package com.example.android.musicstructure;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import static android.content.ContentValues.TAG;
 import static android.support.v4.content.ContextCompat.startActivity;
+import static android.widget.Toast.makeText;
 
 /**
  * Created by christoffer on 2018-03-20.
@@ -24,15 +28,19 @@ import static android.support.v4.content.ContextCompat.startActivity;
 
 public class TrackAdapter extends ArrayAdapter<Track> {
 
-    public TrackAdapter(Activity context, ArrayList<Track> Tracks){
+    public TrackAdapter(Context context, ArrayList<Track> Tracks){
         super(context, 0, Tracks);
     }
 
     private static final String LOG_TAG = TrackAdapter.class.getSimpleName();
 
+    private Context context;
+
     //Override getView
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+
+
 
         //This looks for which view to display. If outside view, not shown
 
@@ -55,28 +63,28 @@ public class TrackAdapter extends ArrayAdapter<Track> {
         TextView artistView = (TextView) listItemView.findViewById(R.id.artist_text_view);
 
         // Get the version number from the current Track object and
-        // set this text on the number TextView
+        // set this text on the artist TextView
         artistView.setText(currentTrack.getTrackArtist());
 
-        // Return the whole list item layout (containing 2 TextViews)
-        // so that it can be shown in the ListView
-        return listItemView;
+        this.context = context;
 
         listItemView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(currentTrack, getItem(position), Toast.LENGTH_LONG).show();
-                Intent playerIntent = new Intent(TrackAdapter.this, PlayerActivity.class);
-
-                startActivity(playerIntent);
+                //Log.d(TAG, "onClick: ");
+                Intent playerIntent = new Intent(getContext(), PlayerActivity.class);
+                getContext().startActivity(playerIntent(currentTrack));
             }
 
         });
 
+        // Return the whole list item layout (containing 2 TextViews)
+        // so that it can be shown in the ListView
+        return listItemView;
 
-    }
 
+        }
 
 }

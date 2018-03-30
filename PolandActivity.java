@@ -1,8 +1,12 @@
 package com.example.android.musicstructure;
 
+        import android.content.Intent;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.view.View;
         import android.widget.ListView;
+        import android.widget.Toast;
+
         import java.util.ArrayList;
 
 public class PolandActivity extends AppCompatActivity {
@@ -15,7 +19,7 @@ public class PolandActivity extends AppCompatActivity {
 
         //create ArrayList for Tracks
 
-        ArrayList<Track> Tracks = new ArrayList<Track>();
+        final ArrayList<Track> Tracks = new ArrayList<Track>();
         Tracks.add(new Track("Missa paschalis", "Grzegorz Gerwazy Gorczycki"));
         Tracks.add(new Track("Sepulto Domino", "Grzegorz Gerwazy Gorczycki"));
         Tracks.add(new Track("Dignare me laudare te", "Grzegorz Gerwazy Gorczycki"));
@@ -35,12 +39,11 @@ public class PolandActivity extends AppCompatActivity {
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // Track_list.xml file.
-        ListView listView = (ListView) findViewById(R.id.list);
+        final ListView listView = (ListView) findViewById(R.id.list);
 
         // Make the {@link ListView} use the {@link TrackAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link Track} in the list.
         listView.setAdapter(adapter);
-
 
 
     }
